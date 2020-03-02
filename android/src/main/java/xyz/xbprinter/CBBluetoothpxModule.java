@@ -125,8 +125,8 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
             // Do whatever you want to do with your bluetoothAdapter
             Set<BluetoothDevice> all_devices = bluetoothAdapter.getBondedDevices();
             if (all_devices.size() > 0) {
-                WritableMap device = Arguments.createMap();
-                for (BluetoothDevice currentDevice : all_devices) {
+                if(currentDevice != null){
+                    WritableMap device = Arguments.createMap();
                     device.putString("deviceName", currentDevice.getName());
                     device.putString("deviceAddress", currentDevice.getAddress());
                     devices.pushMap(device);
