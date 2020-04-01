@@ -126,9 +126,12 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
             Set<BluetoothDevice> all_devices = bluetoothAdapter.getBondedDevices();
             if (all_devices.size() > 0) {
                 for (BluetoothDevice currentDevice : all_devices) {
-                    device.putString("deviceName", currentDevice.getName());
-                    device.putString("deviceAddress", currentDevice.getAddress());
-                    devices.pushMap(device);
+                    if(currentDevice != null){
+                        WritableMap device = Arguments.createMap();
+                        device.putString("deviceName", currentDevice.getName());
+                        device.putString("deviceAddress", currentDevice.getAddress());
+                        devices.pushMap(device);
+                    }
                 }
             }
         }
@@ -171,6 +174,18 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void addFeedLine(int line) throws Exception {
         printerManager.addFeedLine(line);
+    }
+
+    @ReactMethod
+    public void addBarcode(String txt) throws Exception {
+        //printerManager.addBarcode(text);
+        printerManager.addBarcode(txt, PrinterConst.ALIGN_CENTER);
+    }
+
+    @ReactMethod
+    public void addQRcode(String text) throws Exception {
+        //printerManager.addBarcode(text);
+        printerManager.addQRcode(text, PrinterConst.ALIGN_CENTER);
     }
 
     @ReactMethod
@@ -2110,6 +2125,7 @@ class ZJPrinterManager implements IPrinterManager {
     @Override
     public void addBarcode(String text) throws Exception {
         addBarcode(text, PrinterConst.ALIGN_LEFT);
+        
     }
 
     @Override
@@ -2169,9 +2185,11 @@ class ZJPrinterManager implements IPrinterManager {
             }
         }
 
-        byte[] bytes = PrintPicture.POS_PrintBMP(line, this._paperWidth, 0);
-
-        printerCommandList.add(bytes);
+        if(line != null){
+            byte[] bytes = PrintPicture.POS_PrintBMP(line, this._paperWidth, 0);
+            printerCommandList.add(bytes);
+        }
+   
 
         textList.clear();
 
@@ -2387,6 +2405,8 @@ class PrintPicture {
      */
     public static byte[] POS_PrintBMP(Bitmap mBitmap, int nWidth, int nMode) {
         // 先转黑白，再调用函数缩放位图
+
+        
 
         int width = ((nWidth + 7) / 8) * 8;
         int height = mBitmap.getHeight() * width / mBitmap.getWidth();

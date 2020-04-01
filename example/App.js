@@ -45,14 +45,23 @@ export default class App extends Component {
 
   testPrint = () => {
 
+   try {
     CBBluetoothpx.addText("PrinterTest", 1,0);
     CBBluetoothpx.flushText();
     CBBluetoothpx.addText("TouchableOpacity", 1,0);
     CBBluetoothpx.flushText();
     CBBluetoothpx.addText("ทัสเซเบิลโอบาซิตี้", 1,0);
     CBBluetoothpx.flushText();
-    
+    CBBluetoothpx.addFeedLine(1);
+    CBBluetoothpx.addBarcode("01209457");
+    CBBluetoothpx.flushText();
+    CBBluetoothpx.addQRcode("http://www.xxxxxxxxx.com/");
+    CBBluetoothpx.flushText();
+ 
     CBBluetoothpx.sendData()
+   } catch (error) {
+     
+   }
   }
 
   render() {
