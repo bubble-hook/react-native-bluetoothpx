@@ -175,7 +175,17 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void addFeedLine(int line) throws Exception {
-        printerManager.addFeedLine(line);
+        printerManager.addFeedLine(line,35);
+    }
+
+    @ReactMethod
+    public void addCmdFeedLine() throws Exception {
+        printerManager.addCmdFeedLine();
+    }
+
+    @ReactMethod
+    public void addFeedLineWithMultiple(int line,int multiple) throws Exception {
+        printerManager.addFeedLine(line,multiple);
     }
 
     @ReactMethod
@@ -291,7 +301,9 @@ interface IPrinterManager {
 
     void flushText() throws Exception;
 
-    void addFeedLine(int line) throws Exception;
+    void addFeedLine(int line,int multiple) throws Exception;
+
+    void addCmdFeedLine() throws Exception;
 
     void addPageEnd() throws Exception;
 
@@ -2203,8 +2215,16 @@ class ZJPrinterManager implements IPrinterManager {
     }
 
     @Override
-    public void addFeedLine(int line) throws Exception {
-        printerCommandList.add(PrinterCommand.POS_Set_PrtAndFeedPaper(35 * line));
+    public void addCmdFeedLine() throws Exception {
+        printerCommandList.add(PrinterCommands.FEED_LINE);
+    }
+
+    @Override
+    public void addFeedLine(int line,int multiple) throws Exception {
+        if(multiple == 0){
+            multiple = 35;
+        }
+        printerCommandList.add(PrinterCommand.POS_Set_PrtAndFeedPaper(multiple * line));
         printerCommandList.add(Command.GS_V_m_n);
     }
 
