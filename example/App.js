@@ -15,6 +15,7 @@ import CBBluetoothpx from 'react-native-bluetoothpx';
 export default class App extends Component {
   state = {
     printerState: "",
+    error:{},
     devices: []
   };
 
@@ -46,40 +47,96 @@ export default class App extends Component {
   testPrint = () => {
 
    try {
+    // CBBluetoothpx.addText("PrinterTest", 1,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("TouchableOpacity", 1,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("ทัสเซเบิลโอบาซิตี้", 1,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addFeedLine(1);
+    // CBBluetoothpx.addBarcode("01209457");
+    // CBBluetoothpx.flushText();
+
+    // CBBluetoothpx.addText("บริษัท รุ่งกิจทัวร์ จำกัด", 50,1);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("Rungkit Tour Co,.Ltd", 50,1);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addFeedLine(1);
+    // CBBluetoothpx.addText("ตั๋วโดยสาร", 50,1);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("Passenger Ticket", 50,1);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addFeedLine(1);
+    // CBBluetoothpx.addText("=================================", 50,1);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addFeedLine(1);
+    // CBBluetoothpx.addText("เลขที่ตั๋ว/Ticket Number", 1,0);
+    // CBBluetoothpx.addText("วันเดินทาง/Day", 60,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("TK-12130412", 1,0);
+    // CBBluetoothpx.addText("10 มกราคม 2563", 60,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("เวลา/Time", 1,0);
+    // CBBluetoothpx.addText("ประเภทรภ/Type", 60,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("12:12", 1,0);
+    // CBBluetoothpx.addText("-", 60,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("เลขทะเบียนรถ/Car Number", 1,0);
+    // CBBluetoothpx.addText("เลขข้างรถ/Bus Number", 60,0);
+    // CBBluetoothpx.flushText();
+    // CBBluetoothpx.addText("-", 1,0);
+    // CBBluetoothpx.addText("-", 60,0);
+    // CBBluetoothpx.flushText();
+
+   
+    // CBBluetoothpx.flushText();
+
     CBBluetoothpx.addText("PrinterTest", 1,0);
     CBBluetoothpx.flushText();
     CBBluetoothpx.addText("TouchableOpacity", 1,0);
     CBBluetoothpx.flushText();
     CBBluetoothpx.addText("ทัสเซเบิลโอบาซิตี้", 1,0);
     CBBluetoothpx.flushText();
-    CBBluetoothpx.addFeedLine(1);
-    CBBluetoothpx.addBarcode("01209457");
+   // CBBluetoothpx.addFeedLine(0.2);
+    CBBluetoothpx.addBarcode("123G56789E");
+    CBBluetoothpx.addText("ทัสเซเบิลโอบาซิตี้", 1,0);
     CBBluetoothpx.flushText();
-    CBBluetoothpx.addQRcode("http://www.xxxxxxxxx.com/");
+   // CBBluetoothpx.addFeedLine(1);
     CBBluetoothpx.flushText();
+    CBBluetoothpx.addQRcode("https://github.com/");
+    CBBluetoothpx.flushText();
+ 
  
     CBBluetoothpx.sendData()
    } catch (error) {
+     this.setState({error:error})
      
    }
   }
 
   render() {
     return (
+      <>
       <View style={styles.container}>
         <Text>PrinterTest</Text>
         <TouchableOpacity onPress={this.testPrint} style={{ backgroundColor: 'red', padding: 10, borderRadius: 10 }}>
-          <Text>testPrint</Text>
+          <Text>TestPrint</Text>
         </TouchableOpacity>
         <Text>{JSON.stringify(this.state.printerState)}</Text>
-        {this.state.devices.map((b) => {
+        <Text>{JSON.stringify(this.state.error)}</Text>
+   
+      </View>
+      {this.state.devices.map((b) => {
           return (
-            <TouchableOpacity key={`${b.deviceAddress}`} onPress={this.connect(b)} style={{ backgroundColor: 'red', padding: 10, borderRadius: 10 }}>
-              <Text> {`${b.deviceName} : ${b.deviceAddress}`}</Text>
+            <TouchableOpacity  key={`${b.deviceAddress}`} onPress={this.connect(b)} style={{ backgroundColor: 'red', padding: 10, borderRadius: 10 , margin:1 }}>
+              <Text> {`${b.deviceName}  `}</Text>
+              <Text> {`${b.deviceAddress}`}</Text>
             </TouchableOpacity>
           )
         })}
-      </View>
+      </>
     );
   }
 }

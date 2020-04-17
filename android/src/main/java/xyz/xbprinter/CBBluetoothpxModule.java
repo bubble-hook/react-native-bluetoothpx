@@ -74,6 +74,8 @@ import com.facebook.react.bridge.Callback;
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
+import net.glxn.qrgen.android.QRCode;
+
 public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
@@ -734,7 +736,8 @@ class PrintingUtil {
     }
 
     private static StaticLayout createStaticLayout(String text, int paperWidth) {
-        TextPaint paint = createTextPaint(23);
+        //TextPaint paint = createTextPaint(23);
+        TextPaint paint = createTextPaint(17);
 
         return new StaticLayout(text, 0, text.length(), paint, paperWidth, Layout.Alignment.ALIGN_NORMAL, 1.1F, 0.0F,
                 true, TextUtils.TruncateAt.END, paperWidth);
@@ -2138,15 +2141,19 @@ class ZJPrinterManager implements IPrinterManager {
 
     @Override
     public void addQRcode(String text) throws Exception {
+    
         addQRcode(text, PrinterConst.ALIGN_LEFT);
     }
 
     @Override
     public void addQRcode(String text, int align) throws Exception {
         addTextAlign(align);
-        printerCommandList.add(PrinterCommand.POS_Print_Text("\r\n", THAI, 255, 0, 0, 0));
-        byte[] bytes = PrinterCommand.getBarCommand(text, 0, 3, 6);
-        printerCommandList.add(bytes);
+        // printerCommandList.add(PrinterCommand.POS_Print_Text("\r\n", THAI, 255, 0, 0, 0));
+        // byte[] bytes = PrinterCommand.getBarCommand(text, 0, 3, 6);
+        Bitmap myBitmap = QRCode.from(text).withSize(384, 384).bitmap();
+        byte[] data = PrintPicture.POS_PrintBMP(myBitmap, _paperWidth, 0);
+        printerCommandList.add(data);
+       // printerCommandList.add(bytes);
 
     }
 
