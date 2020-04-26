@@ -147,10 +147,7 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
 
         if (printerManager != null) {
-            if(printerManager.isConnected()){
-                printerManager.disconnect();
-            }
-            
+            printerManager.disconnect();    
         }
         printerManager = new ZJPrinterManager(this.reactContext.getCurrentActivity(), mHandler);
 
