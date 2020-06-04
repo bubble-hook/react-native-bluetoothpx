@@ -156,6 +156,14 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
 
     }
 
+
+    @ReactMethod
+    public void setPaperWidth(int w) throws Exception {
+        if(printerManager != null){
+            printerManager.setPaperWidth(w);
+        }
+    }
+
     @ReactMethod
     public void addText(String text, double position, int align) throws Exception {
         // if ((Double.compare(position, 0) <= 0) || (Double.compare(100, position) <
@@ -659,7 +667,8 @@ class PrintingUtil {
             alignment = Layout.Alignment.ALIGN_OPPOSITE;
         }
 
-        TextPaint paint = createTextPaint(23);
+        //TextPaint paint = createTextPaint(23);
+        TextPaint paint = createTextPaint(17);
 
         StaticLayout layout = new StaticLayout(text, 0, text.length(), paint, paperWidth, alignment, 1.1F, 0.0F, true,
                 TextUtils.TruncateAt.END, paperWidth);
@@ -768,7 +777,8 @@ class PrintingUtil {
 
     private static int getTextWidth(String text) {
         Rect bounds = new Rect();
-        TextPaint paint = createTextPaint(23);
+        //TextPaint paint = createTextPaint(23);
+        TextPaint paint = createTextPaint(17);
         paint.getTextBounds(text, 0, text.length(), bounds);
 
         return bounds.width() + 3;
@@ -776,8 +786,8 @@ class PrintingUtil {
 
     private static int getTextHeight(String text, int align, int width) {
         Rect bounds = new Rect();
-        TextPaint paint = createTextPaint(23);
-
+        //TextPaint paint = createTextPaint(23);
+        TextPaint paint = createTextPaint(17);
         Layout.Alignment alignment = null;
 
         if (align == PrinterConst.ALIGN_LEFT) {
@@ -2096,7 +2106,7 @@ class ZJPrinterManager implements IPrinterManager {
 
     @Override
     public boolean setPaperWidth(int width) throws Exception {
-        this._paperWidth = 384;
+        this._paperWidth = width;
 
         if (width == PrinterConst.PAPER_WIDTH_58MM) {
             this._characterSize = 32;
