@@ -8,6 +8,8 @@
  * https://github.com/facebook/react-native
  */
 
+ 
+
 import React, {Component} from 'react';
 import {
   Platform,
@@ -19,6 +21,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import CBBluetoothpx from 'react-native-bluetoothpx';
+import {imageLogo} from './data'
 
 export default class App extends Component {
   state = {
@@ -106,6 +109,7 @@ export default class App extends Component {
       // CBBluetoothpx.addFeedLine(0.2);
 
       CBBluetoothpx.setPaperWidth(384);
+      CBBluetoothpx.printBase64ImageStrWithSize(imageLogo,2,140);
       CBBluetoothpx.addText('บริษัท รุ่งกิจทัวร์ จำกัด', 50, 1);
       CBBluetoothpx.setTextSize(25);
       CBBluetoothpx.setLineHeight(35);
@@ -387,6 +391,7 @@ export default class App extends Component {
       // CBBluetoothpx.sendData()
     } catch (error) {
       this.setState({error: error});
+      alert(error)
     }
   };
 
