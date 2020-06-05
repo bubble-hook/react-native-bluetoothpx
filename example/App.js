@@ -106,14 +106,22 @@ export default class App extends Component {
       // CBBluetoothpx.addFeedLine(0.2);
 
       CBBluetoothpx.setPaperWidth(384);
-      CBBluetoothpx.addText('บริษัท รุ่งกิจทัวร์ จำกัด', 55, 1);
+      CBBluetoothpx.addText('บริษัท รุ่งกิจทัวร์ จำกัด', 50, 1);
+      CBBluetoothpx.setTextSize(25);
+      CBBluetoothpx.setLineHeight(35);
       CBBluetoothpx.flushText();
-      CBBluetoothpx.addText('Rungkit Tour Co,.Ltd', 55, 1);
+      CBBluetoothpx.setLineHeight(35);
+      CBBluetoothpx.setTextSize(17);
+      CBBluetoothpx.addText('Rungkit Tour Co,.Ltd', 50, 1);
       CBBluetoothpx.flushText();
       CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addText('ตั๋วโดยสาร', 52, 1);
+      CBBluetoothpx.addText('ตั๋วโดยสาร', 50, 1);
+      CBBluetoothpx.setTextSize(25);
+      CBBluetoothpx.setLineHeight(35);
       CBBluetoothpx.flushText();
-      CBBluetoothpx.addText('Passenger Ticket', 55, 1);
+      CBBluetoothpx.setLineHeight(35);
+      CBBluetoothpx.setTextSize(17);
+      CBBluetoothpx.addText('Passenger Ticket', 50, 1);
       CBBluetoothpx.flushText();
       CBBluetoothpx.addCmdFeedLine();
       CBBluetoothpx.addText(
@@ -157,7 +165,11 @@ export default class App extends Component {
       CBBluetoothpx.addText('เส้นทาง/Route', 10, 0);
       CBBluetoothpx.flushText();
       CBBluetoothpx.addText('ภูเก็ต  -  ชุมพร', 55, 1);
+      CBBluetoothpx.setTextSize(40);
+      CBBluetoothpx.setLineHeight(60);
       CBBluetoothpx.flushText();
+      CBBluetoothpx.setLineHeight(35);
+      CBBluetoothpx.setTextSize(17);
       CBBluetoothpx.addText(
         '===========================================',
         1,
@@ -167,7 +179,11 @@ export default class App extends Component {
       CBBluetoothpx.addText('เลขที่นั่ง/Seat No', 10, 0);
       CBBluetoothpx.flushText();
       CBBluetoothpx.addText('A38', 55, 1);
+      CBBluetoothpx.setTextSize(40);
+      CBBluetoothpx.setLineHeight(60);
       CBBluetoothpx.flushText();
+      CBBluetoothpx.setLineHeight(35);
+      CBBluetoothpx.setTextSize(17);
       CBBluetoothpx.addText(
         '===========================================',
         1,
@@ -208,8 +224,15 @@ export default class App extends Component {
       );
       CBBluetoothpx.flushText();
 
-      //CBBluetoothpx.addQRcode('RX123G5678');
+      CBBluetoothpx.addQRcode('RX123G5678');
       //CBBluetoothpx.flushText();
+
+      CBBluetoothpx.addText(
+        '===========================================',
+        1,
+        0,
+      );
+      CBBluetoothpx.flushText();
 
       CBBluetoothpx.addText('วันที่ออกตั๋ว', 1, 0);
       CBBluetoothpx.addText('10-10-2020 06:40:00', 30, 0);
@@ -232,11 +255,16 @@ export default class App extends Component {
       CBBluetoothpx.flushText();
       CBBluetoothpx.addCmdFeedLine();
       CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addText('คู่ปองทานอาหาร', 55, 1);
+      CBBluetoothpx.addText('คู่ปองทานอาหาร', 50, 1);
+      CBBluetoothpx.setTextSize(40);
+      CBBluetoothpx.setLineHeight(60);
       CBBluetoothpx.flushText();
-      CBBluetoothpx.addText('มูลค่า 40  บาท', 55, 1);
+      CBBluetoothpx.addText('มูลค่า 40  บาท', 50, 1);
+
       CBBluetoothpx.flushText();
-      CBBluetoothpx.addText('เมื่อซื้อตั๋วโดยสารมูลค่า 250 บาทขึ้นไป', 65, 1);
+      CBBluetoothpx.setTextSize(17);
+      CBBluetoothpx.setLineHeight(35);
+      CBBluetoothpx.addText('เมื่อซื้อตั๋วโดยสารมูลค่า 250 บาทขึ้นไป', 50, 1);
       CBBluetoothpx.flushText();
       CBBluetoothpx.addCmdFeedLine();
       CBBluetoothpx.addCmdFeedLine();
@@ -249,134 +277,114 @@ export default class App extends Component {
 
       CBBluetoothpx.sendData();
 
+      // CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addCmdFeedLine();
 
+      // CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addCmdFeedLine();
 
-      CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addText("บริษัท รุ่งกิจทัวร์ จำกัด", 55, 1);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("Rungkit Tour Co,.Ltd", 55, 1);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addText("ใบเสร็จรับเงิน", 52, 1);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("รับฝาก - ส่งของ", 52, 1);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addText("===========================================", 1, 0);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addText("เลขที่ใบเสร็จ", 1, 0);
+      // CBBluetoothpx.addText("วันเวลาที่ฝากส่ง", 60, 0);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addText("RFX1234567", 1, 0);
+      // CBBluetoothpx.addText("10/10/2019 16:30:00", 58, 0);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addText("สถานที่รับฝาก", 1, 0);
+      // CBBluetoothpx.addText("ผู้ทำรายการ", 60, 0);
+      // CBBluetoothpx.flushText();
 
-    
+      // CBBluetoothpx.addText("ภูเก็ต", 1, 0);
+      // CBBluetoothpx.addText("ลลิตา แท่นศร", 60, 0);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addText("===========================================", 1, 0);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("บริษัท รุ่งกิจทัวร์ จำกัด", 55, 1);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addText("Rungkit Tour Co,.Ltd", 55, 1);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addText("ใบเสร็จรับเงิน", 52, 1);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addText("รับฝาก - ส่งของ", 52, 1);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addText("===========================================", 1, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("ผู้ฝากส่ง", 1, 0);
+      // CBBluetoothpx.addText("สมศรี ใจสะอาด", 20, 0);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("เบอร์โทร", 1, 0);
+      // CBBluetoothpx.addText("094-0759080", 20, 0);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("===========================================", 1, 0);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("เลขที่ใบเสร็จ", 1, 0);
-      CBBluetoothpx.addText("วันเวลาที่ฝากส่ง", 60, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("1.", 1, 0);
+      // CBBluetoothpx.addText("ผู้รับ สมรัก มานะ", 5, 0);
+      // CBBluetoothpx.addText("RX1234567", 70, 0);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("RFX1234567", 1, 0);
-      CBBluetoothpx.addText("10/10/2019 16:30:00", 58, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("ประเภท:", 5, 0);
+      // CBBluetoothpx.addText("ทั่วไป", 25, 0);
+      // CBBluetoothpx.addText("10kg", 43, 0);
+      // CBBluetoothpx.addText("1 ชิ้น", 60, 0);
+      // CBBluetoothpx.addText("100.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addText("ปลายทาง:", 5, 0);
+      // CBBluetoothpx.addText("ตะกั่วป่า", 25, 0);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addCmdFeedLine();
+      // CBBluetoothpx.addCmdFeedLine();
 
-      CBBluetoothpx.addText("สถานที่รับฝาก", 1, 0);
-      CBBluetoothpx.addText("ผู้ทำรายการ", 60, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("2.", 1, 0);
+      // CBBluetoothpx.addText("ผู้รับ สมรัก มานะ", 5, 0);
+      // CBBluetoothpx.addText("RX1234567", 70, 0);
+      // CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("ประเภท:", 5, 0);
+      // CBBluetoothpx.addText("ของสด", 25, 0);
+      // CBBluetoothpx.addText("5kg", 43, 0);
+      // CBBluetoothpx.addText("1 ชิ้น", 60, 0);
+      // CBBluetoothpx.addText("120.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("ภูเก็ต", 1, 0);
-      CBBluetoothpx.addText("ลลิตา แท่นศร", 60, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("ปลายทาง:", 5, 0);
+      // CBBluetoothpx.addText("ระนอง", 25, 0);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("===========================================", 1, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("===========================================", 1, 0);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("ผู้ฝากส่ง", 1, 0);
-      CBBluetoothpx.addText("สมศรี ใจสะอาด", 20, 0);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addText("เบอร์โทร", 1, 0);
-      CBBluetoothpx.addText("094-0759080", 20, 0);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addText("===========================================", 1, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("ยอดรวม", 30, 0);
+      // CBBluetoothpx.addText("22,000.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addText("ส่วนลด", 30, 0);
+      // CBBluetoothpx.addText("10.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("1.", 1, 0);
-      CBBluetoothpx.addText("ผู้รับ สมรัก มานะ", 5, 0);
-      CBBluetoothpx.addText("RX1234567", 70, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("ยอดสุทธิ", 30, 0);
+      // CBBluetoothpx.addText("220.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("ประเภท:", 5, 0);
-      CBBluetoothpx.addText("ทั่วไป", 25, 0);
-      CBBluetoothpx.addText("10kg", 43, 0);
-      CBBluetoothpx.addText("1 ชิ้น", 60, 0);
-      CBBluetoothpx.addText("100.00", 100, 2);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("เงินสด", 30, 0);
+      // CBBluetoothpx.addText("159.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
-      CBBluetoothpx.addText("ปลายทาง:", 5, 0);
-      CBBluetoothpx.addText("ตะกั่วป่า", 25, 0);
-      CBBluetoothpx.flushText();
+      // CBBluetoothpx.addText("เงินทอน", 30, 0);
+      // CBBluetoothpx.addText("30.00", 100, 2);
+      // CBBluetoothpx.flushText();
 
+      // CBBluetoothpx.addText("ขอบคุณที่ใช้บริการ", 55, 1);
+      // CBBluetoothpx.flushText();
 
-
-
-      CBBluetoothpx.addCmdFeedLine();
-      CBBluetoothpx.addCmdFeedLine();
-
-      CBBluetoothpx.addText("2.", 1, 0);
-      CBBluetoothpx.addText("ผู้รับ สมรัก มานะ", 5, 0);
-      CBBluetoothpx.addText("RX1234567", 70, 0);
-      CBBluetoothpx.flushText();
-      CBBluetoothpx.addText("ประเภท:", 5, 0);
-      CBBluetoothpx.addText("ของสด", 25, 0);
-      CBBluetoothpx.addText("5kg", 43, 0);
-      CBBluetoothpx.addText("1 ชิ้น", 60, 0);
-      CBBluetoothpx.addText("120.00", 100, 2);
-      CBBluetoothpx.flushText();
-
-      CBBluetoothpx.addText("ปลายทาง:", 5, 0);
-      CBBluetoothpx.addText("ระนอง", 25, 0);
-      CBBluetoothpx.flushText();
-
-      CBBluetoothpx.addText("===========================================", 1, 0);
-      CBBluetoothpx.flushText();
-
-      CBBluetoothpx.addText("ยอดรวม", 30, 0);
-      CBBluetoothpx.addText("22,000.00", 100, 2);
-      CBBluetoothpx.flushText();
-
-
-      CBBluetoothpx.addText("ส่วนลด", 30, 0);
-      CBBluetoothpx.addText("10.00", 100, 2);
-      CBBluetoothpx.flushText();
-
-
-
-      CBBluetoothpx.addText("ยอดสุทธิ", 30, 0);
-      CBBluetoothpx.addText("220.00", 100, 2);
-      CBBluetoothpx.flushText();
-
-      CBBluetoothpx.addText("เงินสด", 30, 0);
-      CBBluetoothpx.addText("159.00", 100, 2);
-      CBBluetoothpx.flushText();
-
-
-      CBBluetoothpx.addText("เงินทอน", 30, 0);
-      CBBluetoothpx.addText("30.00", 100, 2);
-      CBBluetoothpx.flushText();
-
-
-      CBBluetoothpx.addText("ขอบคุณที่ใช้บริการ", 55, 1);
-      CBBluetoothpx.flushText();
-
-
-
-      CBBluetoothpx.sendData()
+      // CBBluetoothpx.sendData()
     } catch (error) {
       this.setState({error: error});
     }

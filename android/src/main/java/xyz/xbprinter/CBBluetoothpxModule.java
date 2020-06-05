@@ -210,6 +210,19 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
         printerManager.sendData();
     }
 
+    @ReactMethod
+    public void setTextSize(int textSize) throws Exception {
+        printerManager.setTextSize(textSize);
+    }
+
+
+    @ReactMethod
+    public void setLineHeight(int h) throws Exception {
+        PrintingUtil.setLineHeight(h);
+    }
+    
+
+
     private final Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
@@ -317,6 +330,10 @@ interface IPrinterManager {
     void openDrawer(int pin) throws Exception;
 
     void sendData() throws Exception;
+
+    void setTextSize(int textSisze) throws Exception;
+
+    
 }
 
 class PrintingUtil {
@@ -335,6 +352,10 @@ class PrintingUtil {
 
     public static void setTextBold(boolean bold) {
         _textBold = bold;
+    }
+
+    public static void setLineHeight(int h){
+        _lineHeight = h;
     }
 
     public static String convertText(String text, int limit, int side) {
@@ -637,17 +658,17 @@ class PrintingUtil {
     }
 
     public static Bitmap formattingPrinterGraphicMode(int paperWidth, Bitmap line, String text, double position,
-            int align) {
-        int textWidth = getTextWidth(text);
+            int align,int textSize) {
+        int textWidth = getTextWidth(text,textSize);
         Float pt = findPosition(paperWidth, (float) position - 1, align, textWidth);
 
         if (line == null) {
             line = Bitmap.createBitmap(paperWidth, _lineHeight, Bitmap.Config.ARGB_8888);
-            createCanvas(line, "", paperWidth);
+            createCanvas(line, "", paperWidth,textSize);
         }
 
         Bitmap canvasBitmap = Bitmap.createBitmap(textWidth, _lineHeight, Bitmap.Config.ARGB_8888);
-        createCanvas(canvasBitmap, text, paperWidth);
+        createCanvas(canvasBitmap, text, paperWidth,textSize);
 
         Canvas comboImage = new Canvas(line);
         comboImage.drawBitmap(line, 0f, 0f, null);
@@ -656,7 +677,7 @@ class PrintingUtil {
         return line;
     }
 
-    public static Bitmap formattingPrinterGraphicModeOutLine(int paperWidth, String text, double position, int align) {
+    public static Bitmap formattingPrinterGraphicModeOutLine(int paperWidth, String text, double position, int align,int textSize) {
         Layout.Alignment alignment = null;
 
         if (align == PrinterConst.ALIGN_LEFT) {
@@ -668,13 +689,21 @@ class PrintingUtil {
         }
 
         //TextPaint paint = createTextPaint(23);
-        TextPaint paint = createTextPaint(17);
+        TextPaint paint = createTextPaint(textSize);
+
+        
 
         StaticLayout layout = new StaticLayout(text, 0, text.length(), paint, paperWidth, alignment, 1.1F, 0.0F, true,
                 TextUtils.TruncateAt.END, paperWidth);
 
-        int textHeight = layout.getHeight() + 5;
 
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        float height = fm.descent - fm.ascent;
+        
+
+        int textHeight = (int)height;
+        
+    
         Bitmap canvasBitmap = Bitmap.createBitmap(paperWidth, textHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(canvasBitmap);
         canvas.setBitmap(canvasBitmap);
@@ -718,11 +747,11 @@ class PrintingUtil {
         return canvasBitmap;
     }
 
-    public static Bitmap generateImage(Bitmap image, int width, int align) {
+    public static Bitmap generateImage(Bitmap image, int width, int align,int textSize) {
         int height = image != null ? image.getHeight() : 0;
 
         Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        createCanvas(canvasBitmap, "", width);
+        createCanvas(canvasBitmap, "", width,textSize);
 
         Canvas comboImage = new Canvas(canvasBitmap);
 
@@ -739,8 +768,8 @@ class PrintingUtil {
         return canvasBitmap;
     }
 
-    public static Canvas createCanvas(Bitmap btm, String text, int paperWidth) {
-        StaticLayout layout = createStaticLayout(text, paperWidth);
+    public static Canvas createCanvas(Bitmap btm, String text, int paperWidth,int textSize) {
+        StaticLayout layout = createStaticLayout(text, paperWidth,textSize);
 
         Canvas canvas = new Canvas(btm);
         canvas.setBitmap(btm);
@@ -753,9 +782,9 @@ class PrintingUtil {
         return canvas;
     }
 
-    private static StaticLayout createStaticLayout(String text, int paperWidth) {
+    private static StaticLayout createStaticLayout(String text, int paperWidth,int textSize) {
         //TextPaint paint = createTextPaint(23);
-        TextPaint paint = createTextPaint(17);
+        TextPaint paint = createTextPaint(textSize);
 
         return new StaticLayout(text, 0, text.length(), paint, paperWidth, Layout.Alignment.ALIGN_NORMAL, 1.1F, 0.0F,
                 true, TextUtils.TruncateAt.END, paperWidth);
@@ -775,19 +804,19 @@ class PrintingUtil {
         return paint;
     }
 
-    private static int getTextWidth(String text) {
+    private static int getTextWidth(String text,int textSize) {
         Rect bounds = new Rect();
         //TextPaint paint = createTextPaint(23);
-        TextPaint paint = createTextPaint(17);
+        TextPaint paint = createTextPaint(textSize);
         paint.getTextBounds(text, 0, text.length(), bounds);
 
         return bounds.width() + 3;
     }
 
-    private static int getTextHeight(String text, int align, int width) {
+    private static int getTextHeight(String text, int align, int width,int textSize) {
         Rect bounds = new Rect();
         //TextPaint paint = createTextPaint(23);
-        TextPaint paint = createTextPaint(17);
+        TextPaint paint = createTextPaint(textSize);
         Layout.Alignment alignment = null;
 
         if (align == PrinterConst.ALIGN_LEFT) {
@@ -2057,6 +2086,7 @@ class ZJPrinterManager implements IPrinterManager {
     private int _printMode = 0;
     private int _characterSize = 32;
     private boolean _textBold = false;
+    private int _textSize = 17;
 
     private List<HashMap<String, Object>> textList = new ArrayList<HashMap<String, Object>>();
     private List<byte[]> printerCommandList = new ArrayList<byte[]>();
@@ -2204,9 +2234,9 @@ class ZJPrinterManager implements IPrinterManager {
             boolean inline[] = (boolean[]) hashMap.get("inline");
 
             if (inline != null && inline.length > 0 && inline[0] == false) {
-                line = PrintingUtil.formattingPrinterGraphicModeOutLine(this._paperWidth, text, position, align);
+                line = PrintingUtil.formattingPrinterGraphicModeOutLine(this._paperWidth, text, position, align,this._textSize);
             } else {
-                line = PrintingUtil.formattingPrinterGraphicMode(this._paperWidth, line, text, position, align);
+                line = PrintingUtil.formattingPrinterGraphicMode(this._paperWidth, line, text, position, align,this._textSize);
 
             }
         }
@@ -2258,6 +2288,12 @@ class ZJPrinterManager implements IPrinterManager {
         }
 
         printerCommandList.clear();
+    }
+
+
+    @Override
+    public void setTextSize(int textSize) throws Exception {
+        this._textSize =textSize;
     }
 
     public void addTextAlign(int align) throws Exception {
