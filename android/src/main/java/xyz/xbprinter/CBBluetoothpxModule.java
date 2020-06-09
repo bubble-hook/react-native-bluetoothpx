@@ -18,6 +18,8 @@ import android.util.Base64;
 
 import android.os.Environment;
 
+import android.content.res.AssetManager;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -223,6 +225,14 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setTF(String path) throws Exception {
+        AssetManager assetManager = this.reactContext.getAssets();
+        Typeface tf = Typeface.createFromAsset(assetManager, path);
+        PrintingUtil.setTF(tf);
+    }
+
+
+    @ReactMethod
     public void printBase64ImageStr(String base64Str) throws Exception {
         byte[] decodedString = Base64.decode(base64Str, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -376,9 +386,14 @@ interface IPrinterManager {
 
     void setTextSize(int textSisze) throws Exception;
 
+
 }
 
 class PrintingUtil {
+
+
+    public static Typeface _TF = null;
+
     // UNICODE 0x23 = #
     public static final byte[] UNICODE_TEXT = new byte[] { 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23,
             0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23, 0x23,
@@ -394,6 +409,10 @@ class PrintingUtil {
 
     public static void setTextBold(boolean bold) {
         _textBold = bold;
+    }
+
+    public static void setTF(Typeface tf){
+        _TF = tf;
     }
 
     public static void setLineHeight(int h) {
@@ -836,8 +855,16 @@ class PrintingUtil {
         paint.setStyle(Paint.Style.FILL);
         paint.setFakeBoldText(false);
 
-        paint.setTypeface(Typeface.create(_textBold ? Typeface.DEFAULT_BOLD : Typeface.SANS_SERIF,
-                _textBold ? Typeface.BOLD : Typeface.NORMAL));
+        Typeface tf = null ;
+
+        if(_TF != null){
+            tf = _TF;
+        }else{
+            tf = Typeface.create(_textBold ? Typeface.DEFAULT_BOLD : Typeface.SANS_SERIF,
+            _textBold ? Typeface.BOLD : Typeface.NORMAL);
+        }
+        paint.setTypeface(tf);
+      
 
         return paint;
     }
@@ -2135,6 +2162,7 @@ class ZJPrinterManager implements IPrinterManager {
         this._context = context;
         this._handler = handler;
     }
+
 
     @Override
     public boolean connect(String address, String connectionType) throws Exception {
