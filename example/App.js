@@ -8,8 +8,6 @@
  * https://github.com/facebook/react-native
  */
 
- 
-
 import React, {Component} from 'react';
 import {
   Platform,
@@ -21,7 +19,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import CBBluetoothpx from 'react-native-bluetoothpx';
-import {imageLogo} from './data'
+import {imageLogo} from './data';
 
 export default class App extends Component {
   state = {
@@ -55,28 +53,36 @@ export default class App extends Component {
 
   testPrint = () => {
     try {
-
-      CBBluetoothpx.setTF("fonts/Tahoma.ttf")
-
       CBBluetoothpx.setPaperWidth(384);
       CBBluetoothpx.setLineHeight(40);
 
+      // ['fonts/Tahoma.ttf', 'fonts/THSarabun.ttf'].map(font => {
+      //   CBBluetoothpx.setTF(font);
+
+      //   for (let index = 10; index != 0; index = index - 10) {
+      //     CBBluetoothpx.setTextSize(index);
+      //     CBBluetoothpx.setLineHeight(index + 5);
+      //     CBBluetoothpx.addText(font +'  Size :' + index, 1, 0);
+      //     CBBluetoothpx.flushText();
+
+      //     CBBluetoothpx.addText('PrinterTest', 1, 0);
+      //     CBBluetoothpx.flushText();
+      //     CBBluetoothpx.addText('TouchableOpacity', 1, 0);
+      //     CBBluetoothpx.flushText();
+      //     CBBluetoothpx.addText('ทัสเซเบิลโอบาซิตี้', 1, 0);
+      //     CBBluetoothpx.flushText();
+      //     CBBluetoothpx.addFeedLine(1);
+      //   }
+
+      //   CBBluetoothpx.sendData();
+      // });
 
 
-      for (let index = 50 ; index != 0; index = index-10) {
-        CBBluetoothpx.setTextSize(index);
-        CBBluetoothpx.setLineHeight(index + 5);
-        CBBluetoothpx.addText("Tahoma.ttf Size :" + index, 1,0);
-        CBBluetoothpx.flushText();
+      CBBluetoothpx.addQRcodeWithSize('CBBluetoothpxCBBluetoothpxCBBluetoothpxCBBluetoothpxCBBluetoothpx',200);
+      CBBluetoothpx.sendData();
 
-        CBBluetoothpx.addText("PrinterTest", 1,0);
-        CBBluetoothpx.flushText();
-        CBBluetoothpx.addText("TouchableOpacity", 1,0);
-        CBBluetoothpx.flushText();
-        CBBluetoothpx.addText("ทัสเซเบิลโอบาซิตี้", 1,0);
-        CBBluetoothpx.flushText();
-        CBBluetoothpx.addFeedLine(1);
-      }
+
+
 
       // CBBluetoothpx.setTextSize(25);
       // CBBluetoothpx.addText("PrinterTest", 1,0);
@@ -413,11 +419,9 @@ export default class App extends Component {
 
       // CBBluetoothpx.addText("ขอบคุณที่ใช้บริการ", 55, 1);
       // CBBluetoothpx.flushText();
-
-       CBBluetoothpx.sendData()
     } catch (error) {
       this.setState({error: error});
-      alert(error)
+      alert(error);
     }
   };
 

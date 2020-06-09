@@ -210,6 +210,12 @@ public class CBBluetoothpxModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void addQRcodeWithSize(String text,int size) throws Exception {
+        // printerManager.addBarcode(text);
+        printerManager.addQRcodeWithSize(text,size);
+    }
+
+    @ReactMethod
     public void sendData() throws Exception {
         printerManager.sendData();
     }
@@ -363,6 +369,8 @@ interface IPrinterManager {
     void addBarcode(String text, int align) throws Exception;
 
     void addQRcode(String text) throws Exception;
+
+    void addQRcodeWithSize(String text,int size) throws Exception;
 
     void addQRcode(String text, int align) throws Exception;
 
@@ -2265,6 +2273,36 @@ class ZJPrinterManager implements IPrinterManager {
     public void addQRcode(String text) throws Exception {
 
         addQRcode(text, PrinterConst.ALIGN_LEFT);
+    }
+
+    @Override
+    public void addQRcodeWithSize(String text,int size) throws Exception {
+        addTextAlign(PrinterConst.ALIGN_CENTER);
+        Bitmap mBitmap = QRCode.from(text).withSize(size, size).bitmap();
+
+
+
+        Bitmap nBitmap = Bitmap.createBitmap(384, mBitmap.getHeight() + 10, Bitmap.Config.ARGB_8888);
+        nBitmap.eraseColor(0xFFFFFFFF);
+        Canvas canvas = new Canvas(nBitmap);
+
+        // int xPos = (int)(canvas.getWidth() / 2);
+        // int yPos = (int)(canvas.getHeight() / 2) ;
+
+        int xPos = (int) ((384 - mBitmap.getWidth()) / 2);
+        int yPos = (int) ((nBitmap.getHeight() - mBitmap.getHeight()) / 2);
+
+        Paint paint2 = new Paint();      
+        paint2.setColor(0xffffffff); 
+        paint2.setStyle(android.graphics.Paint.Style.FILL); 
+        canvas.drawPaint(paint2); 
+        canvas.drawBitmap(mBitmap, xPos, yPos, null);
+
+        mBitmap.recycle();
+
+
+        byte[] data = PrintPicture.POS_PrintBMP(nBitmap, 384, 0);
+        printerCommandList.add(data);
     }
 
     @Override
