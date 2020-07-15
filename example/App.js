@@ -78,7 +78,9 @@ export default class App extends Component {
       // });
 
 
-      CBBluetoothpx.addQRcodeWithSize('CBBluetoothpxCBBluetoothpxCBBluetoothpxCBBluetoothpxCBBluetoothpx',200);
+      
+
+      CBBluetoothpx.addBarCodeWithSize('TK-12130412-UYCdsadsadsadsH',150);
       CBBluetoothpx.sendData();
 
 

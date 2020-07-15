@@ -74,6 +74,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 }
 
 def configureReactNativePom(def pom) {
